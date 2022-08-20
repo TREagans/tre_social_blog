@@ -4,7 +4,8 @@
   "description": "The API for TRESocialBlog",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "keywords": [
     "Social",
@@ -13,5 +14,10 @@
     "TREagans"
   ],
   "author": "TREagans",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.5.2"
+  }
 }
