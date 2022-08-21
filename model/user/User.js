@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require('bcryptjs');
 
 // defines the user schema
 const userSchema = new mongoose.Schema({
@@ -93,6 +94,19 @@ const userSchema = new mongoose.Schema({
     virtuals: true
   }, 
   timestamps: true 
+});
+
+
+// create a middleware function to hash password; mongoose also
+// lets us run middleware before creating each user instance
+userSchema.pre('save', async function (next) {
+	const salt = await bcrypt.genSalt(10);
+
+	// hash user password
+	this.password = await bcrypt.hash(this.password, salt);
+
+	// proceed to next middleware
+	next();
 });
 
 // compile schema into model
