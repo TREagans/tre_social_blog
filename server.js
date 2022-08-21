@@ -8,8 +8,20 @@ const connectDB = require("./config/db/dbConnect");
 // a variable, because functions are 1st class citizens
 const app = express();
 
+
+// middleware
+app.use(express.json());  // parses inc JSON requests
+
+
 // connect to database after creating app
 connectDB();
+
+// importing routers
+const userRouters = require('./routes/userRoutes');
+
+// using routes as middleware so that with every
+// incoming request, the correct endpoint will be called
+app.use('/api/users', userRouters);
 
 // using the global variable from node. If there's a
 // port variable, we'll use that, if not, we use 5000
