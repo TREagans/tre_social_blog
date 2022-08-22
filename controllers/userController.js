@@ -1,18 +1,14 @@
-const User = require('../model/user/User');
+const expressAsyncHandler = require('express-async-handler');
 
-const userRegister = async (req, res) => {
+const User = require('../model/user/User');
+const userRegister = expressAsyncHandler(async (req, res) => {
+
+  // check if user already exists
+  const userExist = await User.findOne({ email: req?.body?.email });
+
+  if (userExist) throw new Error("An account with that email address already exists.");
 
   try {
-    // check if user already exists
-    const userExist = await User.findOne({ email: req?.body?.email });
-
-    if (userExist) {
-      return res.status(400).json({
-        success: false,
-        message: 'User already exists'
-      });
-    }
-
 
     // creates and saves a new user into the database
     const user = await User.create({
@@ -29,14 +25,13 @@ const userRegister = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(201).json({
+    res.status(500).json({
 		success: false,
 		message: "Failed to register new user.",
     error: error.message
 	});
   }
-   
-};
+});
 
 
 module.exports = {
