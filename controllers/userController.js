@@ -1,6 +1,8 @@
 const expressAsyncHandler = require('express-async-handler');
 
 const User = require('../model/user/User');
+
+// register controller
 const userRegister = expressAsyncHandler(async (req, res) => {
 
   // check if user already exists
@@ -32,6 +34,13 @@ const userRegister = expressAsyncHandler(async (req, res) => {
 	});
   }
 });
+
+
+// login controller
+const userLogin = async (req, res) => {
+
+  console.log(req.body);
+}
 
 
 module.exports = {
