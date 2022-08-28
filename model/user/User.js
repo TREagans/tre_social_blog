@@ -64,20 +64,20 @@ const userSchema = new mongoose.Schema({
 		type: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
-    }],
+    },],
     ref: 'User'
 	},
   followers: {
     type: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
-    }]
+    },]
   },
   following: {
     type: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
-    }]
+    },]
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
