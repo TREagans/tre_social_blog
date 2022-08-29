@@ -6,6 +6,7 @@ const connectDB = async () => {
   const connectOptions = {
 		useUnifiedTopology: true,
 		useNewUrlParser: true,
+    useCreateIndex: true
   };
 
   try {
