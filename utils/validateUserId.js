@@ -8,7 +8,6 @@ const validateUserId = (id) => {
 
   // if the ID is not valid, throw an error
   if (!isValid) throw new Error("Invalid user ID");
-
 }
 
 module.exports = validateUserId;

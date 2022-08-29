@@ -9,6 +9,10 @@ const {
   fetchUser,
 } = require("../controllers/userController");
 
+// middleware
+const authMiddleware = require("../middlewares/auth/authMiddleware");
+
+
 const router = express();
 
 // REGISTER => POST: /api/users/register
@@ -18,7 +22,7 @@ router.post("/register", userRegister);
 router.post("/login", userLogin);
 
 // FETCH ALL USERS => POST: /api/users
-router.get("/", fetchAllUsers);
+router.get("/", authMiddleware, fetchAllUsers);
 
 // DELETE USER => POST: /api/users/delete/id
 router.delete("/delete/:id", deleteUser);

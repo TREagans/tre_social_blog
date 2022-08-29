@@ -81,9 +81,11 @@ const userLogin = expressAsyncHandler(async (req, res) => {
 // ------  FETCH ALL USERS
 // -----------------------------------
 const fetchAllUsers = expressAsyncHandler(async (req, res) => {
+
   try {
-    // lets get an array of all users
-	  const users = await User.find();
+    // the find method returns an array of all users
+		// using select we can exclude fields we want returned
+	  const users = await User.find({}).select("-password");
 
 	  res.status(200).json({
       success: true,
@@ -98,7 +100,6 @@ const fetchAllUsers = expressAsyncHandler(async (req, res) => {
 		});
   }
 });
-
 
 // -----------------------------------
 // ------  DELETE USER
@@ -130,7 +131,6 @@ const deleteUser = expressAsyncHandler(async (req, res) => {
 	}
 });
 
-
 // -----------------------------------
 // ------  FETCH SINGLE USER
 // -----------------------------------
@@ -143,14 +143,15 @@ const fetchUser = expressAsyncHandler(async (req, res) => {
 	validateUserId(id);
 
 	try {
-		const user = await User.findById(id);
+		// using select we can exclude fields we want returned
+		const user = await User.findById(id).select("-password");
 
 		res.status(200).json({
 			success: true,
 			message: "User",
-			user
+			user,
 		});
-
+		
 	} catch (error) {
 		res.status(404).json({
 			success: false,
@@ -159,6 +160,7 @@ const fetchUser = expressAsyncHandler(async (req, res) => {
 		});
 	}
 });
+
 
 module.exports = {
 	userRegister,
